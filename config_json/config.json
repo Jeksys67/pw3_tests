@@ -1,0 +1,67 @@
+{
+  "base_url": "https://the-internet.herokuapp.com",
+  "endpoints": {
+    "alerts": "/javascript_alerts",
+    "basic_auth": "/basic_auth",
+    "context_click": "/context_menu",
+    "slider": "/horizontal_slider",
+    "hovers": "/hovers",
+    "windows": "/windows",
+    "frames": "/nested_frames",
+    "dynamic_content": "/dynamic_content",
+    "scroll": "/infinite_scroll",
+    "upload": "/upload",
+    "download": "/download"
+  },
+
+  "alerts": {
+    "dialogs": {
+      "js_alert": "I am a JS Alert",
+      "js_confirm": "I am a JS Confirm",
+      "js_prompt": "I am a JS prompt"
+    },
+    "results": {
+      "js_alert": "You successfully clicked an alert",
+      "js_confirm_ok": "You clicked: Ok",
+      "js_confirm_cancel": "You clicked: Cancel",
+      "js_prompt_template": "You entered: {text}"
+    }
+  },
+
+  "basic_auth": {
+    "username": "admin",
+    "password": "admin",
+    "success_text": "Congratulations! You must have the proper credentials."
+  },
+
+  "context_click": {
+    "alert_text": "You selected a context menu"
+  },
+
+  "slider": {
+    "min_value": 0,
+    "max_value": 5,
+    "step": 0.5
+  },
+
+  "hovers": {
+    "expected_user_name_template": "name: user{number}"
+  },
+
+  "windows": {
+    "new_window_text": "New Window",
+    "expected_tabs_count": 1
+  },
+
+  "frames": {
+  "left_text": "LEFT",
+  "right_text": "RIGHT",
+  "bottom_text": "BOTTOM",
+  "middle_text": "MIDDLE"
+  },
+
+  "upload": {
+  "file_name": "photo_2025-10-30_13-00-44.jpg",
+  "success_text": "File Uploaded!"
+  }
+}
