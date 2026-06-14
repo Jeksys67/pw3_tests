@@ -30,7 +30,7 @@ class WebElement:
     def get_inner_text(self) -> None:
         logger.info(f"{self}: get text content")
         result = self.locator.text_content()
-        logger.info(f"{self}: text cotent = {result}")
+        logger.info(f"{self}: text content = {result}")
         return result
 
     def find_child(self, selector: str, description: str) -> "WebElement":

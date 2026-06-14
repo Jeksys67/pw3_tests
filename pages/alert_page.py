@@ -1,48 +1,37 @@
 from playwright.sync_api import Page
 
+from ui_tools.page_actions import PageActions
+from ui_tools.web_element import WebElement
+
 
 class AlertsPage:
     def __init__(self, page: Page):
         self.page = page
-
-        self.js_alert_button = page.get_by_role("button", name="Click for JS Alert")
-        self.js_confirm_button = page.get_by_role("button", name="Click for JS Confirm")
-        self.js_prompt_button = page.get_by_role("button", name="Click for JS Prompt")
+        self.actions = PageActions(page)
+        self.js_alert_button = WebElement(
+            page,
+            "JS Prompt button",
+            page.get_by_role("button", name="Click for JS Alert")
+        )
+        self.js_confirm_button = WebElement(
+            page,
+            "JS Confirm button",
+            page.get_by_role("button", name="Click for JS Confirm")
+        )
+        self.js_prompt_button = WebElement(
+            page,
+            "JS Prompt button",
+            page.get_by_role("button", name="Click for JS Prompt")
+        )
 
         self.result = page.locator("#result")
 
     def click_js_alert_and_accept(self) -> str:
-        dialog_text = {}
-
-        def handle_dialog(dialog):
-            dialog_text["message"] = dialog.message
-            dialog.accept()
-
-        self.page.once("dialog", handle_dialog)
-        self.js_alert_button.click()
-
-        return dialog_text["message"]
+        return self.actions.run_and_accept_alert(self.js_alert_button.click)
 
     def click_js_confirm_and_accept(self) -> str:
-        dialog_text = {}
-
-        def handle_dialog(dialog):
-            dialog_text["message"] = dialog.message
-            dialog.accept()
-
-        self.page.once("dialog", handle_dialog)
-        self.js_confirm_button.click()
-
-        return dialog_text["message"]
+        return self.actions.run_and_accept_alert(self.js_confirm_button.click)
 
     def click_js_prompt_and_accept(self, text: str) -> str:
-        dialog_text = {}
-
-        def handle_dialog(dialog):
-            dialog_text["message"] = dialog.message
-            dialog.accept(text)
-
-        self.page.once("dialog", handle_dialog)
-        self.js_prompt_button.click()
-
-        return dialog_text["message"]
+        return self.actions.run_and_accept_prompt(self.js_prompt_button.click,
+                                                  text, )
