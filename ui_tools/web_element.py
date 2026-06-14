@@ -43,3 +43,48 @@ class WebElement:
             description=f"{self.description} -> {description}",
             locator=child_locator,
         )
+
+    def focus(self) -> None:
+        logger.info(f"{self}: focus")
+        self.locator.focus()
+
+    def press(self, key: str) -> None:
+        logger.info(f"{self}: press '{key}'")
+        self.locator.press(key)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
