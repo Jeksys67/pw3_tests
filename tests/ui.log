@@ -1,0 +1,52 @@
+2026-06-13 16:59:01 | INFO     | WebElement[Hot spot area]: right click
+2026-06-13 17:36:54 | INFO     | WebElement[User avatar[0]]: hover
+2026-06-13 17:36:54 | INFO     | WebElement[User avatar[0]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 17:36:54 | INFO     | WebElement[User avatar[0] -> User name]: get text content
+2026-06-13 17:36:54 | INFO     | WebElement[User avatar[0] -> User name]: text cotent = name: user1
+2026-06-13 17:37:25 | INFO     | WebElement[User avatar[0]]: hover
+2026-06-13 17:37:25 | INFO     | WebElement[User avatar[0]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 17:37:25 | INFO     | WebElement[User avatar[0] -> User name]: get text content
+2026-06-13 17:37:25 | INFO     | WebElement[User avatar[0] -> User name]: text cotent = name: user1
+2026-06-13 17:42:04 | INFO     | WebElement[User avatar[0]]: hover
+2026-06-13 17:42:04 | INFO     | WebElement[User avatar[0]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 17:42:04 | INFO     | WebElement[User avatar[1]]: hover
+2026-06-13 17:42:04 | INFO     | WebElement[User avatar[1]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 17:42:04 | INFO     | WebElement[User avatar[2]]: hover
+2026-06-13 17:42:04 | INFO     | WebElement[User avatar[2]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: count elements
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: count = 3
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: get element by index 0
+2026-06-13 18:03:22 | INFO     | WebElement[User avatar[0]]: hover
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: get element by index 0
+2026-06-13 18:03:22 | INFO     | WebElement[User avatar[0]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: get element by index 1
+2026-06-13 18:03:22 | INFO     | WebElement[User avatar[1]]: hover
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: get element by index 1
+2026-06-13 18:03:22 | INFO     | WebElement[User avatar[1]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: get element by index 2
+2026-06-13 18:03:22 | INFO     | WebElement[User avatar[2]]: hover
+2026-06-13 18:03:22 | INFO     | MultiWebElement[User avatar]: get element by index 2
+2026-06-13 18:03:22 | INFO     | WebElement[User avatar[2]]: find child 'User name' by selector '.figcaption h5'
+2026-06-13 19:11:08 | INFO     | PageActions: accept dialog
+2026-06-13 19:11:08 | INFO     | PageActions: expect dialog
+2026-06-13 19:11:08 | INFO     | WebElement[Hot spot area]: right click
+2026-06-13 19:13:26 | INFO     | PageActions: accept dialog
+2026-06-13 19:13:26 | INFO     | PageActions: expect dialog
+2026-06-13 19:13:26 | INFO     | WebElement[Hot spot area]: right click
+2026-06-13 19:13:26 | INFO     | PageActions: dialog 'alert' with message 'You selected a context menu'
+2026-06-14 13:53:56 | INFO     | PageActions: accept dialog
+2026-06-14 13:53:56 | INFO     | PageActions: expect dialog
+2026-06-14 13:53:56 | INFO     | WebElement[Hot spot area]: right click
+2026-06-14 13:53:56 | INFO     | PageActions: dialog 'alert' with message 'You selected a context menu'
+2026-06-14 14:40:08 | INFO     | PageActions: accept dialog
+2026-06-14 14:40:08 | INFO     | PageActions: expect dialog
+2026-06-14 14:40:08 | INFO     | WebElement[JS Prompt button]: click
+2026-06-14 14:40:08 | INFO     | PageActions: dialog 'alert' with message 'I am a JS Alert'
+2026-06-14 14:40:11 | INFO     | PageActions: accept dialog
+2026-06-14 14:40:11 | INFO     | PageActions: expect dialog
+2026-06-14 14:40:11 | INFO     | WebElement[JS Confirm button]: click
+2026-06-14 14:40:11 | INFO     | PageActions: dialog 'confirm' with message 'I am a JS Confirm'
+2026-06-14 14:40:13 | INFO     | PageActions: accept prompt
+2026-06-14 14:40:13 | INFO     | PageActions: expect dialog
+2026-06-14 14:40:13 | INFO     | WebElement[JS Prompt button]: click
+2026-06-14 14:40:13 | INFO     | PageActions: dialog 'prompt' with message 'I am a JS prompt'
