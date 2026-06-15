@@ -1,31 +1,33 @@
-from playwright.sync_api import Browser, expect
+from playwright.sync_api import Browser
+
+from core.page_factory import PageFactory
+from pages.basic_auth_page import BasicAuthPage
 
 
-def test_basic_authorization(browser: Browser, config: dict, endpoint_url):
-    basic_auth_data = config["basic_auth"]
-    url = endpoint_url("basic_auth")
+def test_basic_authorization(browser: Browser, config: dict, open_endpoint):
+    username = "admin"
+    password = "admin"
+    expected_success_text = "Congratulations! You must have the proper credentials."
 
-    context = browser.new_context(
+    page_factory = PageFactory(browser, config)
+
+    page = page_factory.create_page(
         http_credentials={
-            "username": basic_auth_data["username"],
-            "password": basic_auth_data["password"]
+            "username": username,
+            "password": password,
         }
     )
 
-    page = context.new_page()
+    open_endpoint("basic_auth", target_page=page)
 
-    response = page.goto(url)
+    basic_auth_page = BasicAuthPage(page)
 
-    assert response is not None, "Authorization error: страница не вернула ответ"
+    actual_text = basic_auth_page.get_body_text()
 
-    assert response.status == 200, (
-        "Authorization error: ожидался статус 200, "
-        f"но пришёл статус {response.status}"
-    )
+    assert expected_success_text in actual_text, (
+    "Basic auth success text не найден на странице\n"
+    f"Expected text: {expected_success_text!r}\n"
+    f"Actual page text: {actual_text!r}"
+)
 
-    expect(
-        page.locator("body"),
-        "Authorization error: успешный текст после авторизации не найден"
-    ).to_contain_text(basic_auth_data["success_text"])
-
-    context.close()
+    page.context.close()

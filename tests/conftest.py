@@ -5,6 +5,7 @@ from playwright.sync_api import Browser, Page
 from core.page_factory import PageFactory
 from logger_config import setup_logger
 from config.config_reader import get_url, load_config
+from ui_tools.page_actions import PageActions
 
 
 @pytest.fixture(scope="session")
@@ -27,8 +28,9 @@ def init_logger():
 
 @pytest.fixture()
 def open_endpoint(page: Page, endpoint_url):
-    def _open_endpoint(endpoint_name: str):
-        page.goto(endpoint_url(endpoint_name))
+    def _open_endpoint(endpoint_name: str, target_page: Page | None = None):
+        current_page = target_page or page
+        PageActions(current_page).goto(endpoint_url(endpoint_name))
 
     return _open_endpoint
 

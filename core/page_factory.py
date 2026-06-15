@@ -9,10 +9,17 @@ class PageFactory:
         self.browser = browser
         self.config = config
 
-    def create_page(self) -> Page:
-        context = self._create_context()
+    def create_page(
+            self,
+            http_credentials: dict[str, str] | None = None,
+    ) -> Page:
+        context = self._create_context(http_credentials=http_credentials)
         page = context.new_page()
-        page.set_default_timeout(self.config.get("default_timeout_ms", self.DEFAULT_TIMEOUT_MS))
+
+        page.set_default_timeout(
+            self.config.get("default_timeout_ms", self.DEFAULT_TIMEOUT_MS)
+        )
+
         page.set_default_navigation_timeout(
             self.config.get(
                 "navigation_timeout_ms",
@@ -22,8 +29,15 @@ class PageFactory:
 
         return page
 
-    def _create_context(self) -> BrowserContext:
-        context = self.browser.new_context(
-            base_url=self.config["base_url"]
-        )
-        return context
+    def _create_context(
+            self,
+            http_credentials: dict[str, str] | None = None,
+    ) -> BrowserContext:
+        context_options = {
+            "base_url": self.config["base_url"],
+        }
+
+        if http_credentials is not None:
+            context_options["http_credentials"] = http_credentials
+
+        return self.browser.new_context(**context_options)

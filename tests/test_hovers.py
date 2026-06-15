@@ -3,22 +3,24 @@ from playwright.sync_api import Page, expect
 from pages.hovers_page import HoversPage
 
 
-def test_hovers_show_user_info(page: Page, config: dict, open_endpoint):
+def test_hovers_show_user_info(page: Page, open_endpoint):
+    expected_user_name_template = "name: user{number}"
     open_endpoint("hovers")
 
     hovers_page = HoversPage(page)
-    hovers_data = config["hovers"]
 
     users_count = hovers_page.get_users_count()
 
-    assert users_count > 0, "На странице не найдено пользователей"
+    assert users_count > 0, (
+        "На странице не найдено пользователей\n"
+        "Expected: users_count > 0\n"
+        f"Actual: {users_count!r}"
+    )
 
     for index in range(users_count):
         hovers_page.hover_user_by_index(index)
 
-        expected_user_name = hovers_data["expected_user_name_template"].format(
-            number=index + 1
-        )
+        expected_user_name = expected_user_name_template.format(number=index + 1)
 
         user_name = hovers_page.get_user_name_by_index(index)
 

@@ -13,9 +13,9 @@ def format_slider_value(value: float) -> str:
 
 
 def get_random_slider_value(
-    min_value: float,
-    max_value: float,
-    step: float
+        min_value: float,
+        max_value: float,
+        step: float
 ) -> float:
     steps_count = int((max_value - min_value) / step)
 
@@ -27,28 +27,29 @@ def get_random_slider_value(
     return random.choice(values)
 
 
-def test_slider_random_value_with_keyboard(page: Page, config: dict, open_endpoint):
+def test_slider_random_value_with_keyboard(page: Page, open_endpoint):
     slider_page = SliderPage(page)
-    slider_data = config["slider"]
 
-    min_value = slider_data["min_value"]
-    max_value = slider_data["max_value"]
-    step = slider_data["step"]
+    open_endpoint("slider")
+
+    min_value = slider_page.get_min_value()
+    max_value = slider_page.get_max_value()
+    step = slider_page.get_step()
 
     target_value = get_random_slider_value(
         min_value=min_value,
         max_value=max_value,
-        step=step
+        step=step,
     )
 
     expected_value = format_slider_value(target_value)
 
-    open_endpoint("slider")
+    slider_page.set_slider_value_with_keyboard(target_value)
 
-    slider_page.set_slider_value_with_keyboard(
-        target_value=target_value,
-        min_value=min_value,
-        step=step
+    actual_value = slider_page.get_slider_value_text()
+
+    assert actual_value == expected_value, (
+        "Incorrect slider value\n"
+        f"Expected: {expected_value!r}\n"
+        f"Actual: {actual_value!r}"
     )
-
-    expect(slider_page.slider_value).to_have_text(expected_value)
