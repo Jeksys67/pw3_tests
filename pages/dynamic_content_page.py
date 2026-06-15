@@ -1,21 +1,29 @@
 from playwright.sync_api import Page
 
+from ui_tools.multi_web_element import MultiWebElement
+from ui_tools.page_actions import PageActions
+
+
 class DynamicContentPage:
     def __init__(self, page: Page):
         self.page = page
-        self.images = page.locator("#content img")
-
+        self.actions = PageActions(page)
+        self.images = MultiWebElement(
+            page,
+            "Dynamic content images",
+            page.locator("#content img")
+        )
 
     def reload_page(self):
-        self.page.reload(wait_until="domcontentloaded")
+        self.actions.reload_page()
 
     def wait_images_attached(self):
-        self.images.nth(2).wait_for(state="attached")
+        self.images.nth(2)
 
     def get_image_sources(self) -> list[str]:
         self.wait_images_attached()
 
         return [
-            self.images.nth(1).get_attribute("src")
+            self.images.nth(i).get_attribute("src")
             for i in range(self.images.count())
         ]

@@ -11,9 +11,12 @@ def test_download_third_file(page: Page, open_endpoint):
 
     expected_file_name = download_page.get_file_name_by_index(third_file_index)
 
-    with page.expect_download() as download_info:
-        download_page.click_file_by_index(third_file_index)
+    downloaded_file = download_page.download_file_by_index(third_file_index)
 
-    downloaded_file = download_info.value
+    actual_file_name = downloaded_file.suggested_filename
 
-    assert downloaded_file.suggested_filename == expected_file_name
+    assert actual_file_name == expected_file_name, (
+        "Incorrect downloaded file name\n"
+        f"Expected: {expected_file_name!r}\n"
+        f"Actual: {actual_file_name!r}"
+    )

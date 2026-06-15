@@ -10,7 +10,7 @@ class AlertsPage:
         self.actions = PageActions(page)
         self.js_alert_button = WebElement(
             page,
-            "JS Prompt button",
+            "JS Alert button",
             page.get_by_role("button", name="Click for JS Alert")
         )
         self.js_confirm_button = WebElement(
@@ -24,7 +24,11 @@ class AlertsPage:
             page.get_by_role("button", name="Click for JS Prompt")
         )
 
-        self.result = page.locator("#result")
+        self._result = WebElement(
+            page,
+            "Alert result text",
+            page.locator("#result")
+        )
 
     def click_js_alert_and_accept(self) -> str:
         return self.actions.run_and_accept_alert(self.js_alert_button.click)
@@ -35,3 +39,6 @@ class AlertsPage:
     def click_js_prompt_and_accept(self, text: str) -> str:
         return self.actions.run_and_accept_prompt(self.js_prompt_button.click,
                                                   text, )
+
+    def get_result_text(self) -> str:
+        return self._result.get_inner_text()

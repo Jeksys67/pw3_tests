@@ -17,7 +17,14 @@ def test_dynamic_content_img(page: Page, open_endpoint):
     while not pair_img and attempts < max_attempts:
         image_sources = dynamic_page.get_image_sources()
 
-        assert len(image_sources) == 3
+        actual_images_count = len(image_sources)
+        expected_images_count = 3
+
+        assert actual_images_count == expected_images_count, (
+            "Incorrect dynamic content images count\n"
+            f"Expected: {expected_images_count!r}\n"
+            f"Actual: {actual_images_count!r}"
+        )
 
         pair_img = is_one_pair(image_sources)
 
@@ -27,5 +34,9 @@ def test_dynamic_content_img(page: Page, open_endpoint):
         attempts += 1
 
     assert pair_img, (
-        f"{max_attempts} попыток не дали нужного результата"
+        "Failed to find a pair of matching images in dynamic content\n"
+        "Expected: True\n"
+        f"Actual: {pair_img!r}\n"
+        f"Attempts: {attempts!r}\n"
+        f"Max attempts: {max_attempts!r}"
     )

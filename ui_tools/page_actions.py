@@ -1,4 +1,5 @@
 import logging
+from typing import Literal
 from collections.abc import Callable
 
 from playwright.sync_api import Page, Dialog
@@ -11,6 +12,10 @@ logger = logging.getLogger(LOGGER_NAME)
 class PageActions:
     def __init__(self, page: Page) -> None:
         self.page = page
+
+    def goto(self, url: str) -> None:
+        logger.info(f"PageActions: goto '{url}'")
+        self.page.goto(url)
 
     def run_and_accept_alert(self, action: Callable[[], None]) -> str:
         logger.info("PageActions: accept dialog")
@@ -64,3 +69,42 @@ class PageActions:
             raise RuntimeError("Expected dialog was not shown")
 
         return message
+
+    def run_and_expect_download(self, action: Callable[[], None]):
+        logger.info(f"PageActions: expect download")
+
+        with self.page.expect_download() as download_info:
+            action()
+
+        download = download_info.value
+        logger.info(f"PageActions: downloaded file '{download.suggested_filename}'")
+
+        return download
+
+    def run_and_expect_new_page(self, action: Callable[[], None]):
+        logger.info(f"PageAction: expect new page")
+
+        with self.page.expect_popup() as popup_info:
+            action()
+
+        new_page = popup_info.value
+        new_page.wait_for_load_state()
+
+        logger.info(f"PageActions: new page opened with url '{new_page.url}'")
+
+        return new_page
+
+    def bring_to_front(self) -> None:
+        logger.info(f"PageActions: bring page to front")
+        self.page.bring_to_front()
+
+    def reload_page(
+            self,
+            wait_until: Literal["commit", "domcontentloaded", "load", "networkidle"] = "domcontentloaded",
+    ) -> None:
+        logger.info(f"PageActions: reload page with wait_until='{wait_until}'")
+        self.page.reload(wait_until=wait_until)
+
+    def scroll_page_down(self, delta_y: int = 1000) -> None:
+        logger.info(f"PageActions: scroll page down by {delta_y}")
+        self.page.mouse.wheel(delta_x=0, delta_y=delta_y)
