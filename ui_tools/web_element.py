@@ -38,12 +38,10 @@ class WebElement:
     def find_child(self, selector: str, description: str) -> "WebElement":
         logger.info(f"{self}: find child '{description}' by selector '{selector}'")
 
-        child_locator = self.locator.locator(selector)
-
         return WebElement(
             page=self.page,
             description=f"{self.description} -> {description}",
-            locator=child_locator,
+            locator=self.locator.locator(selector)
         )
 
     def focus(self) -> None:

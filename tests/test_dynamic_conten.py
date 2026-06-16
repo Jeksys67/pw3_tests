@@ -1,5 +1,8 @@
 from playwright.sync_api import Page
+
 from pages.dynamic_content_page import DynamicContentPage
+from ui_tools.page_actions import PageActions
+
 
 def is_one_pair(items: list[str]) -> bool:
     return len(items) != len(set(items))
@@ -7,6 +10,7 @@ def is_one_pair(items: list[str]) -> bool:
 
 def test_dynamic_content_img(page: Page, open_endpoint):
     dynamic_page = DynamicContentPage(page)
+    page_actions = PageActions(page)
 
     open_endpoint("dynamic_content")
 
@@ -15,10 +19,12 @@ def test_dynamic_content_img(page: Page, open_endpoint):
     pair_img = False
 
     while not pair_img and attempts < max_attempts:
+        expected_images_count = 3
+
+        dynamic_page.wait_images_attached(expected_images_count)
         image_sources = dynamic_page.get_image_sources()
 
         actual_images_count = len(image_sources)
-        expected_images_count = 3
 
         assert actual_images_count == expected_images_count, (
             "Incorrect dynamic content images count\n"
@@ -29,7 +35,7 @@ def test_dynamic_content_img(page: Page, open_endpoint):
         pair_img = is_one_pair(image_sources)
 
         if not pair_img:
-            dynamic_page.reload_page()
+            page_actions.reload_page()
 
         attempts += 1
 

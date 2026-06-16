@@ -1,7 +1,7 @@
 from playwright.sync_api import Page, expect
 
 from pages.windows_page import WindowPage
-
+from ui_tools.page_actions import PageActions
 
 
 def test_open_and_close_new_windows(page: Page, open_endpoint):
@@ -9,6 +9,7 @@ def test_open_and_close_new_windows(page: Page, open_endpoint):
     expected_tabs_count = 1
 
     windows_page = WindowPage(page)
+    page_actions = PageActions(page)
 
     open_endpoint("windows")
 
@@ -18,7 +19,7 @@ def test_open_and_close_new_windows(page: Page, open_endpoint):
         expected_new_window_text
     )
 
-    windows_page.bring_main_page_to_front()
+    page_actions.bring_to_front()
 
     second_new_page = windows_page.open_new_window()
 
@@ -26,7 +27,7 @@ def test_open_and_close_new_windows(page: Page, open_endpoint):
         expected_new_window_text
     )
 
-    windows_page.bring_main_page_to_front()
+    page_actions.bring_to_front()
 
     first_new_page.close()
     second_new_page.close()

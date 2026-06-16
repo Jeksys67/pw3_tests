@@ -21,6 +21,3 @@ class WindowPage:
 
     def get_opened_pages_count(self) -> int:
         return len(self.page.context.pages)
-
-    def bring_main_page_to_front(self) -> None:
-        self.actions.bring_to_front()
