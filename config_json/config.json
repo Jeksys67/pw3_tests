@@ -1,0 +1,18 @@
+{
+  "base_url": "https://the-internet.herokuapp.com",
+  "default_timeout_ms": 10000,
+  "navigation_timeout_ms": 30000,
+  "endpoints": {
+    "alerts": "/javascript_alerts",
+    "basic_auth": "/basic_auth",
+    "context_click": "/context_menu",
+    "slider": "/horizontal_slider",
+    "hovers": "/hovers",
+    "windows": "/windows",
+    "frames": "/nested_frames",
+    "dynamic_content": "/dynamic_content",
+    "scroll": "/infinite_scroll",
+    "upload": "/upload",
+    "download": "/download"
+  }
+}
