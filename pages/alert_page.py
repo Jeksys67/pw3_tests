@@ -37,8 +37,7 @@ class AlertsPage:
         return self.actions.run_and_accept_alert(self.js_confirm_button.click)
 
     def click_js_prompt_and_accept(self, text: str) -> str:
-        return self.actions.run_and_accept_prompt(self.js_prompt_button.click,
-                                                  text, )
+        return self.actions.run_and_accept_prompt(self.js_prompt_button.click, text)
 
     def get_result_text(self) -> str:
         return self._result.get_inner_text()

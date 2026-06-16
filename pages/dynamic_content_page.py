@@ -14,16 +14,13 @@ class DynamicContentPage:
             page.locator("#content img")
         )
 
-    def reload_page(self):
-        self.actions.reload_page()
-
-    def wait_images_attached(self):
-        self.images.nth(2)
+    def wait_images_attached(self, expected_count: int) -> None:
+        self.images.nth(expected_count - 1).locator.wait_for(state="attached")
 
     def get_image_sources(self) -> list[str]:
-        self.wait_images_attached()
+        images_count = self.images.count()
 
         return [
-            self.images.nth(i).get_attribute("src")
-            for i in range(self.images.count())
+            self.images.nth(index).get_attribute("src")
+            for index in range(images_count)
         ]

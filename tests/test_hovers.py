@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
 from pages.hovers_page import HoversPage
 
@@ -12,7 +12,7 @@ def test_hovers_show_user_info(page: Page, open_endpoint):
     users_count = hovers_page.get_users_count()
 
     assert users_count > 0, (
-        "На странице не найдено пользователей\n"
+        "Users not found\n"
         "Expected: users_count > 0\n"
         f"Actual: {users_count!r}"
     )
@@ -22,7 +22,11 @@ def test_hovers_show_user_info(page: Page, open_endpoint):
 
         expected_user_name = expected_user_name_template.format(number=index + 1)
 
-        user_name = hovers_page.get_user_name_by_index(index)
+        actual_user_name = hovers_page.get_user_name_by_index(index)
 
-        expect(user_name).to_be_visible()
-        expect(user_name).to_have_text(expected_user_name)
+        assert actual_user_name == expected_user_name, (
+            "Incorrect user name after hover\n"
+            f"Expected: {expected_user_name!r}\n"
+            f"Actual: {actual_user_name!r}\n"
+            f"User index: {index!r}"
+        )

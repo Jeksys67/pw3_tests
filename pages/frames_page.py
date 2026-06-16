@@ -4,45 +4,47 @@ from ui_tools.web_element import WebElement
 
 
 class FramePage:
+    TOP_FRAME = "frame[name='frame-top']"
+    BOTTOM_FRAME = "frame[name='frame-bottom']"
+
     def __init__(self, page: Page):
         self.page = page
-        self.top_frame = page.frame_locator("frame[name='frame-top']")
 
-        self.left_frame = self.top_frame.frame_locator("frame[name='frame-left']")
-        self.middle_frame = self.top_frame.frame_locator("frame[name='frame-middle']")
-        self.right_frame = self.top_frame.frame_locator("frame[name='frame-right']")
-
-        self.bottom_frame = page.frame_locator("frame[name='frame-bottom']")
-
-        self.left_frame_body = WebElement(
-            page,
-            "Left frame body",
-            self.left_frame.locator("body")
+        self._left_frame_body = self._top_frame_body(
+            frame_name="frame-left",
+            description="Left frame body"
         )
-        self.middle_frame_body = WebElement(
-            page,
-            "Middle frame body",
-            self.middle_frame.locator("body")
+        self._middle_frame_body = self._top_frame_body(
+            frame_name="frame-middle",
+            description="Middle frame body"
         )
-        self.right_frame_body = WebElement(
-            page,
-            "Right frame body",
-            self.right_frame.locator("body")
+        self._right_frame_body = self._top_frame_body(
+            frame_name="frame-right",
+            description="Right frame body"
         )
-        self.bottom_frame_body = WebElement(
+        self._bottom_frame_body = WebElement(
             page,
             "Bottom frame body",
-            self.bottom_frame.locator("body")
+            page.frame_locator(self.BOTTOM_FRAME).locator("body")
+        )
+
+    def _top_frame_body(self, frame_name: str, description: str) -> WebElement:
+        return WebElement(
+            self.page,
+            description,
+            self.page.frame_locator(self.TOP_FRAME)
+                .frame_locator(f"frame[name='{frame_name}']")
+                .locator("body")
         )
 
     def get_left_frame_text(self) -> str:
-        return self.left_frame_body.get_inner_text().strip()
+        return self._left_frame_body.get_inner_text()
 
     def get_middle_frame_text(self) -> str:
-        return self.middle_frame_body.get_inner_text().strip()
+        return self._middle_frame_body.get_inner_text()
 
     def get_right_frame_text(self) -> str:
-        return self.right_frame_body.get_inner_text().strip()
+        return self._right_frame_body.get_inner_text()
 
     def get_bottom_frame_text(self) -> str:
-        return self.bottom_frame_body.get_inner_text().strip()
+        return self._bottom_frame_body.get_inner_text()
