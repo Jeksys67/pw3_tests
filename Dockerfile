@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/playwright/python:v1.49.1-noble
 
-WORKDIR //app
+WORKDIR /app
 
 COPY requirements.txt .
 
